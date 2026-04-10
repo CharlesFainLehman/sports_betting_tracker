@@ -113,9 +113,7 @@ export default function App() {
   const sortH = c => { if(sc===c) setSd(d=>d==="asc"?"desc":"asc"); else{setSc(c);setSd("asc");} };
   const m = "'JetBrains Mono',monospace";
 
-  const [csvUrl, setCsvUrl] = useState(null);
-
-  const generateCSV = () => {
+  const csvDataUri = useMemo(() => {
     const headers = ["State","Abbr","Status","Channels","Legal Method","Year Legalized","Year Launched","Tax Rate","Regulator","Operators","College Betting","College Props","Restrictions","Sources"];
     const esc = v => { const s = String(v ?? "—"); return s.includes(",") || s.includes('"') || s.includes("\n") ? '"' + s.replace(/"/g, '""') + '"' : s; };
     const rows = Object.entries(S).map(([abbr, s]) => [
@@ -125,10 +123,8 @@ export default function App() {
       s.sources.map(src => src.label + ": " + src.url).join(" | ")
     ].map(esc).join(","));
     const csv = [headers.join(","), ...rows].join("\n");
-    const blob = new Blob([csv], { type: "text/csv" });
-    if (csvUrl) URL.revokeObjectURL(csvUrl);
-    setCsvUrl(URL.createObjectURL(blob));
-  };
+    return "data:text/csv;charset=utf-8," + encodeURIComponent(csv);
+  }, []);
 
   return (
     <div style={{fontFamily:"'Crimson Pro',Georgia,serif",background:"#0d1117",color:"#e6edf3",minHeight:"100vh"}}>
@@ -149,8 +145,7 @@ export default function App() {
             {[{k:"all",l:"All"},{k:"legal_online",l:"Online"},{k:"legal_retail",l:"Retail/Tribal"},{k:"not_legal",l:"Not Legal"}].map(f=><button key={f.k} onClick={()=>setFilt(f.k)} style={{padding:"6px 12px",fontSize:11,fontFamily:m,border:"none",borderRadius:6,cursor:"pointer",background:filt===f.k?"#30363d":"transparent",color:filt===f.k?"#f0f6fc":"#7c8594",fontWeight:500}}>{f.l}</button>)}
           </div>
           <input value={q} onChange={e=>setQ(e.target.value)} placeholder="Search…" style={{padding:"7px 14px",fontSize:12,fontFamily:m,border:"1px solid #30363d",borderRadius:8,background:"#0d1117",color:"#e6edf3",outline:"none",width:150}}/>
-          <button onClick={generateCSV} style={{padding:"6px 14px",fontSize:11,fontFamily:m,border:"1px solid #30363d",borderRadius:8,background:"#161b22",color:"#58a6ff",cursor:"pointer",fontWeight:500,whiteSpace:"nowrap"}}>↓ Export CSV</button>
-          {csvUrl && <a href={csvUrl} download="sports-betting-by-state-2026.csv" style={{padding:"6px 14px",fontSize:11,fontFamily:m,border:"1px solid #238636",borderRadius:8,background:"#238636",color:"#fff",textDecoration:"none",fontWeight:500,whiteSpace:"nowrap"}}>Save CSV</a>}
+          <a href={csvDataUri} download="sports-betting-by-state-2026.csv" style={{padding:"6px 14px",fontSize:11,fontFamily:m,border:"1px solid #30363d",borderRadius:8,background:"#161b22",color:"#58a6ff",textDecoration:"none",fontWeight:500,whiteSpace:"nowrap",cursor:"pointer"}}>↓ Export CSV</a>
           <div style={{marginLeft:"auto",display:"flex",gap:14,fontSize:11,fontFamily:m}}>
             {Object.entries(SC_MAP).map(([k,v])=><div key={k} style={{display:"flex",alignItems:"center",gap:5}}><div style={{width:10,height:10,borderRadius:2,background:v.fill}}/><span style={{color:"#7c8594"}}>{v.label}</span></div>)}
           </div>
