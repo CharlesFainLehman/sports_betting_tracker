@@ -163,10 +163,6 @@ export default function App() {
                     const c=SC_MAP[st.status]?.fill||"#30363d", isSel=sel===a, isH=hov===a;
                     return <path key={a} d={d} fill={isSel?"#58a6ff":isH?"#58a6ff80":c} stroke={isSel?"#f0f6fc":"#0d1117"} strokeWidth={isSel?1.5:0.5} style={{cursor:"pointer",transition:"fill .12s"}} onClick={()=>setSel(a===sel?null:a)} onMouseEnter={()=>setHov(a)} onMouseLeave={()=>setHov(null)}/>;
                   })}
-                  {Object.entries(centers).map(([a,[cx,cy]])=>{
-                    const st=S[a]; if(!st||filt!=="all"&&st.status!==filt) return null;
-                    return <text key={a} x={cx} y={cy} textAnchor="middle" dominantBaseline="central" style={{fontSize:7.5,fontFamily:m,fill:"#c9d1d9",pointerEvents:"none",fontWeight:500,opacity:.85}}>{a}</text>;
-                  })}
                 </svg>
               )}
             </div>
