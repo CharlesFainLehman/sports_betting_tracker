@@ -250,7 +250,11 @@ export default function App() {
           </div>
         )}
 
-        <div style={{marginTop:28,padding:18,background:"#161b22",border:"1px solid #30363d",borderRadius:12,fontSize:11,color:"#7c8594",fontFamily:m,lineHeight:1.7}}>
+        <div style={{marginTop:28,padding:14,background:"#1c1612",border:"1px solid #5a3e28",borderRadius:12,fontSize:12,color:"#d4a053",fontFamily:m,lineHeight:1.6,textAlign:"center"}}>
+          This tracker was built by Claude (Anthropic) and may contain errors. Details should be independently verified before citation. Sources are linked for each state.
+        </div>
+
+        <div style={{marginTop:12,padding:18,background:"#161b22",border:"1px solid #30363d",borderRadius:12,fontSize:11,color:"#7c8594",fontFamily:m,lineHeight:1.7}}>
           <div style={{fontWeight:600,color:"#c9d1d9",marginBottom:6,fontSize:12}}>Methodology & Sources</div>
           <p style={{margin:"0 0 6px"}}>Data compiled from AGA State of Play map, Tax Foundation (2025), CBS Sports, Legal Sports Report, BMR, SportsHandle, Unabated, BettorsInsider, NCAA (Jan 2026), and Action Network. Cross-referenced April 2026.</p>
           <p style={{margin:"0 0 6px"}}>Tax rates are for online/mobile unless noted. Effective rates may differ due to promo deductions. Operator lists are major licensees, not exhaustive. Missouri college betting rules still being finalized by Gaming Commission.</p>
